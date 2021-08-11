@@ -1,0 +1,5 @@
+<RCC>
+  <qresource prefix="add">
+    <file>add-file.png</file>
+  </qresource>
+</RCC>

@@ -1,0 +1,6 @@
+<RCC>
+  <qresource prefix="newPrefix"/>
+  <qresource prefix="webcam">
+    <file>webcam.png</file>
+  </qresource>
+</RCC>

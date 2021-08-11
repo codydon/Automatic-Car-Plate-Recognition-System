@@ -9,6 +9,7 @@ class AutoPlate(main.Ui_MainWindow, QtWidgets.QMainWindow):
                 super(AutoPlate,self).__init__()
                 #setting up the first window
                 self.setupUi(self)
+                self.setFixedSize(831, 551)
 
 
 #APP LAUNCH
