@@ -5,6 +5,7 @@ from PyQt5.QtGui import QPixmap
 import sys
 import os
 import autoplate as main
+import searchplate as search
 
 import cv2
 from matplotlib import pyplot as plt
@@ -49,6 +50,7 @@ class AutoPlate(main.Ui_MainWindow, QtWidgets.QMainWindow):
                 cv2.destroyAllWindows()
                 global imagePath
                 imagePath = path+'/pic.jpg'
+                print(imagePath)
                 self.processPic()
 
         def processPic(self):
@@ -61,7 +63,7 @@ class AutoPlate(main.Ui_MainWindow, QtWidgets.QMainWindow):
                 bfilter = cv2.bilateralFilter(gray, 11, 17, 17) #Noise reduction
                 edged = cv2.Canny(bfilter, 30, 200) #Edge detection
                 plt.imshow(cv2.cvtColor(edged, cv2.COLOR_BGR2RGB))
-                plt.show()
+                #plt.show()
 
                 #find contours(outline) and apply mask
                 keypoints = cv2.findContours(edged.copy(), cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
@@ -76,13 +78,15 @@ class AutoPlate(main.Ui_MainWindow, QtWidgets.QMainWindow):
                                 break
 
                 location
+                try:
+                        mask = np.zeros(gray.shape, np.uint8)
+                        new_image = cv2.drawContours(mask, [location], 0,255, -1)
+                        new_image = cv2.bitwise_and(img, img, mask=mask)                        
+                        plt.imshow(cv2.cvtColor(new_image, cv2.COLOR_BGR2RGB))
+                        #plt.show()
+                except:
+                        self.label_9.setText("Number Plate Not Found")
 
-                mask = np.zeros(gray.shape, np.uint8)
-                new_image = cv2.drawContours(mask, [location], 0,255, -1)
-                new_image = cv2.bitwise_and(img, img, mask=mask)
-
-                plt.imshow(cv2.cvtColor(new_image, cv2.COLOR_BGR2RGB))
-                plt.show()
 
                 (x,y) = np.where(mask==255)
                 (x1, y1) = (np.min(x), np.min(y))
@@ -90,7 +94,7 @@ class AutoPlate(main.Ui_MainWindow, QtWidgets.QMainWindow):
                 cropped_image = gray[x1:x2+1, y1:y2+1]
                 #print(cropped_image)
                 plt.imshow(cv2.cvtColor(cropped_image, cv2.COLOR_BGR2RGB))
-                plt.show()
+                #plt.show()
 
                 #convert numpy.ndarray array to a png
                 cdata= Image.fromarray(cropped_image)
@@ -114,6 +118,15 @@ class AutoPlate(main.Ui_MainWindow, QtWidgets.QMainWindow):
 
 
                 #APP LAUNCH
+
+        def searchNdelete(self):
+                pass
+
+class SearchDelete(search.Ui_MainWindow, QtWidgets.QMainWindow):
+                def __init__(self):
+                        super(SearchDelete, self).__init__()
+                        self.setupUi(self)
+
 if __name__ == "__main__":
         #create an application
         app = QtWidgets.QApplication(sys.argv)
