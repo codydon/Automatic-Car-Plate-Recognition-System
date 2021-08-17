@@ -54,7 +54,7 @@
       </font>
      </property>
      <property name="styleSheet">
-      <string notr="true"> </string>
+      <string notr="true"/>
      </property>
      <property name="text">
       <string>SYSTEM PLATE SEARCH</string>
@@ -134,6 +134,21 @@ QPushButton:hover#pushButton
        <height>261</height>
       </rect>
      </property>
+     <column>
+      <property name="text">
+       <string>id</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>plate number</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>date</string>
+      </property>
+     </column>
     </widget>
     <widget class="QLabel" name="label_2">
      <property name="geometry">

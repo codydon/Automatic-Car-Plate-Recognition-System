@@ -2,8 +2,10 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QMessageBox,  QFileDialog, QDialog
 from PyQt5.QtCore import QDate, QTime, QDateTime, Qt
 from PyQt5.QtGui import QPixmap
+from PyQt5.QtWidgets import QTableWidget
 import sys
 import os
+from db import*
 import autoplate as main
 import searchplate as search
 
@@ -22,6 +24,8 @@ class AutoPlate(main.Ui_MainWindow, QtWidgets.QMainWindow):
                 #connecting buttons
                 self.pushButton.clicked.connect(self.choosePic)
                 self.pushButton_2.clicked.connect(self.takePicture)
+                #button search page
+                self.pushButton_4.clicked.connect(self.searchNdelete)
         
         def choosePic(self):
                 #reading image from user, grayscale & blur
@@ -38,10 +42,11 @@ class AutoPlate(main.Ui_MainWindow, QtWidgets.QMainWindow):
                         now = QDateTime.currentDateTime()
                         datetime = QDateTime.currentDateTime()
                         tdate = now.toString(Qt.ISODate)
-                        ttime = datetime.toString()
+                        time = datetime.toString()
                         ret,frame = videoCaptureObject.read()
-                        store = 'Pic'+tdate+'.jpg'
-                        path ='C:/3.2/SOEN 330 SOFTWARE DOCUMENTATION/AutoPlate/SOEN330 PLATES'
+                        global store
+                        store = 'Pic.jpg'
+                        path ='C:/Users/Kiongoss/Desktop/Ml project/AutoPlate'
                         print(store)
                         #cv2.imwrite(store, frame)
                         cv2.imwrite(os.path.join(path, "pic.jpg"), frame)
@@ -53,6 +58,7 @@ class AutoPlate(main.Ui_MainWindow, QtWidgets.QMainWindow):
                 print(imagePath)
                 self.processPic()
 
+        
         def processPic(self):
                 self.label_9.clear()                
                 img = cv2.imread(imagePath)
@@ -104,14 +110,23 @@ class AutoPlate(main.Ui_MainWindow, QtWidgets.QMainWindow):
                 c_image = cv2.imread('kenyanPlate.png')
 
                 #set pytesseract path
-                pytesseract.pytesseract.tesseract_cmd = r'C:\Users\codyDon\AppData\Local\Tesseract-OCR\tesseract.exe'
+                #pytesseract.pytesseract.tesseract_cmd = r'C:\Users\Kiongoss\AppData\Local\Tesseract-OCR\tesseract.exe'
+                pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files (x86)\Tesseract-OCR\tesseract.exe'
 
                 # pytesseract is trained in many languages
                 image_to_text = pytesseract.image_to_string(c_image, lang='eng')
+                date = QDate.currentDate().toString("yyyy-MM-dd")
 
                 # Print the text to the screen
                 if image_to_text != "":
                         self.label_9.setText(image_to_text)
+                        cursor = conn.cursor()
+                        query = ("INSERT INTO my_table (number,date) VALUE(%s,%s)")
+                        values = (image_to_text, date)
+                        cursor.execute( query,values)
+                        conn.commit()
+                        cursor.close()
+                        print(image_to_text)
                 else:
                         self.label_9.setText("Number Plate Not Found")
 
@@ -120,12 +135,41 @@ class AutoPlate(main.Ui_MainWindow, QtWidgets.QMainWindow):
                 #APP LAUNCH
 
         def searchNdelete(self):
-                pass
+                self.ui = SearchDelete()
+                self.ui.show()
+                self.hide()
 
 class SearchDelete(search.Ui_MainWindow, QtWidgets.QMainWindow):
                 def __init__(self):
                         super(SearchDelete, self).__init__()
                         self.setupUi(self)
+
+                        self.pushButton.clicked.connect(self.back_button)
+                        self.pushButton_2.clicked.connect(self.search)
+                #redirectback to maindashboard
+                def back_button(self):
+                        self.ui = AutoPlate()
+                        self.ui.show()
+                        self.hide()
+
+                def search(self):
+                        platenumber = self.lineEdit.text()
+                        cursor = conn.cursor()
+                        query = """SELECT *FROM my_table WHERE number=(%s)"""
+                        values = (platenumber,)
+                        cursor.execute( query,values)
+                        result = cursor.fetchall()
+                        
+                        self.tableWidget.setRowCount(0)
+
+                        for row_number, row_data in enumerate(result):
+                                self.tableWidget.insertRow(row_number)
+
+                        for column_number, data in enumerate(row_data):
+                                self.tableWidget.setItem(row_number, column_number, QTableWidget(str(data)))
+                        print(result)
+                        conn.commit()
+                        cursor.close()
 
 if __name__ == "__main__":
         #create an application
