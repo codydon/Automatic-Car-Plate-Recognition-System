@@ -5,7 +5,7 @@ from PyQt5.QtGui import QPixmap
 from PyQt5.QtWidgets import QTableWidget
 import sys
 import os
-from db import*
+from db import *
 import autoplate as main
 import searchplate as search
 
@@ -110,8 +110,8 @@ class AutoPlate(main.Ui_MainWindow, QtWidgets.QMainWindow):
                 c_image = cv2.imread('kenyanPlate.png')
 
                 #set pytesseract path
-                #pytesseract.pytesseract.tesseract_cmd = r'C:\Users\Kiongoss\AppData\Local\Tesseract-OCR\tesseract.exe'
-                pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files (x86)\Tesseract-OCR\tesseract.exe'
+                pytesseract.pytesseract.tesseract_cmd = r'C:\Users\codyDon\AppData\Local\Tesseract-OCR\tesseract.exe'
+                #pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files (x86)\Tesseract-OCR\tesseract.exe'
 
                 # pytesseract is trained in many languages
                 image_to_text = pytesseract.image_to_string(c_image, lang='eng')

@@ -86,6 +86,7 @@
      </property>
      <property name="styleSheet">
       <string notr="true">QPushButton{
+	background-color: rgb(255, 255, 255);
 	image: url(:/back/undo.png);
 border:2px solid  rgb(0, 170, 127);
 border-radius:15px;
@@ -186,6 +187,7 @@ QPushButton:hover#pushButton
      </property>
      <property name="styleSheet">
       <string notr="true">QPushButton{	 
+	background-color: rgb(255, 255, 255);
 	image: url(:/delete/delete.png);
  
 border-radius:10px;

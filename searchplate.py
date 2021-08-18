@@ -33,7 +33,7 @@ class Ui_MainWindow(object):
         font.setFamily("Segoe MDL2 Assets")
         font.setPointSize(20)
         self.label.setFont(font)
-        self.label.setStyleSheet(" ")
+        self.label.setStyleSheet("")
         self.label.setTextFormat(QtCore.Qt.AutoText)
         self.label.setAlignment(QtCore.Qt.AlignCenter)
         self.label.setObjectName("label")
@@ -45,6 +45,7 @@ class Ui_MainWindow(object):
         self.pushButton.setFont(font)
         self.pushButton.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.pushButton.setStyleSheet("QPushButton{\n"
+"    background-color: rgb(255, 255, 255);\n"
 "    image: url(:/back/undo.png);\n"
 "border:2px solid  rgb(0, 170, 127);\n"
 "border-radius:15px;\n"
@@ -66,8 +67,14 @@ class Ui_MainWindow(object):
         self.tableWidget = QtWidgets.QTableWidget(self.frame)
         self.tableWidget.setGeometry(QtCore.QRect(110, 180, 661, 261))
         self.tableWidget.setObjectName("tableWidget")
-        self.tableWidget.setColumnCount(0)
+        self.tableWidget.setColumnCount(3)
         self.tableWidget.setRowCount(0)
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget.setHorizontalHeaderItem(0, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget.setHorizontalHeaderItem(1, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget.setHorizontalHeaderItem(2, item)
         self.label_2 = QtWidgets.QLabel(self.frame)
         self.label_2.setGeometry(QtCore.QRect(290, 510, 231, 41))
         self.label_2.setAlignment(QtCore.Qt.AlignCenter)
@@ -80,6 +87,7 @@ class Ui_MainWindow(object):
         self.pushButton_2.setFont(font)
         self.pushButton_2.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.pushButton_2.setStyleSheet("QPushButton{     \n"
+"    background-color: rgb(255, 255, 255);\n"
 "    image: url(:/delete/delete.png);\n"
 " \n"
 "border-radius:10px;\n"
@@ -101,6 +109,12 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.label.setText(_translate("MainWindow", "SYSTEM PLATE SEARCH"))
         self.lineEdit.setPlaceholderText(_translate("MainWindow", "Search Car Plate"))
+        item = self.tableWidget.horizontalHeaderItem(0)
+        item.setText(_translate("MainWindow", "id"))
+        item = self.tableWidget.horizontalHeaderItem(1)
+        item.setText(_translate("MainWindow", "plate number"))
+        item = self.tableWidget.horizontalHeaderItem(2)
+        item.setText(_translate("MainWindow", "date"))
         self.label_2.setText(_translate("MainWindow", " <p>&copy; Kamati Technologies</p>"))
 import back_rc
 import delete_rc

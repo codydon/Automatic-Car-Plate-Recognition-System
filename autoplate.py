@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'AutoPlate.ui'
+# Form implementation generated from reading ui file 'autoplate.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.4
 #
@@ -14,18 +14,18 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(841, 557)
+        MainWindow.resize(842, 558)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.frame = QtWidgets.QFrame(self.centralwidget)
-        self.frame.setGeometry(QtCore.QRect(6, 6, 881, 551))
+        self.frame.setGeometry(QtCore.QRect(6, 6, 831, 551))
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.frame.sizePolicy().hasHeightForWidth())
         self.frame.setSizePolicy(sizePolicy)
-        self.frame.setMinimumSize(QtCore.QSize(881, 551))
-        self.frame.setMaximumSize(QtCore.QSize(881, 551))
+        self.frame.setMinimumSize(QtCore.QSize(831, 551))
+        self.frame.setMaximumSize(QtCore.QSize(831, 551))
         self.frame.setStyleSheet("background-color: rgb(237, 237, 237);")
         self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
@@ -36,18 +36,17 @@ class Ui_MainWindow(object):
         self.frame_2.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_2.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_2.setObjectName("frame_2")
-        self.pushButton_6 = QtWidgets.QPushButton(self.frame_2)
-        self.pushButton_6.setGeometry(QtCore.QRect(260, 160, 61, 20))
-        self.pushButton_6.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.pushButton_6.setObjectName("pushButton_6")
         self.frame_4 = QtWidgets.QFrame(self.frame_2)
-        self.frame_4.setGeometry(QtCore.QRect(20, 20, 191, 161))
-        self.frame_4.setStyleSheet("background-color: rgb(255, 222, 232);")
-        self.frame_4.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.frame_4.setGeometry(QtCore.QRect(40, 40, 191, 131))
+        self.frame_4.setStyleSheet("image: url(:/logo/logo.png);\n"
+"")
+        self.frame_4.setFrameShape(QtWidgets.QFrame.NoFrame)
         self.frame_4.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_4.setObjectName("frame_4")
         self.label_9 = QtWidgets.QLabel(self.frame_2)
-        self.label_9.setGeometry(QtCore.QRect(290, 10, 371, 41))
+        self.label_9.setGeometry(QtCore.QRect(320, 10, 371, 161))
+        self.label_9.setStyleSheet("font: 28pt \"Segoe MDL2 Assets\";")
+        self.label_9.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.label_9.setAlignment(QtCore.Qt.AlignCenter)
         self.label_9.setObjectName("label_9")
         self.frame_3 = QtWidgets.QFrame(self.frame)
@@ -69,12 +68,34 @@ class Ui_MainWindow(object):
         self.label_5.setAlignment(QtCore.Qt.AlignCenter)
         self.label_5.setObjectName("label_5")
         self.pushButton = QtWidgets.QPushButton(self.frame_3)
-        self.pushButton.setGeometry(QtCore.QRect(170, 100, 61, 20))
+        self.pushButton.setGeometry(QtCore.QRect(100, 89, 131, 31))
         self.pushButton.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.pushButton.setStyleSheet("QPushButton{\n"
+"background-color: rgb(0, 170, 127);\n"
+"color: rgb(255, 255, 255);\n"
+"font: 63 12pt \"Yu Gothic UI Semibold\";\n"
+"}\n"
+"\n"
+"QPushButton:hover#pushButton\n"
+"{\n"
+"  background-color: rgb(0, 197, 95);\n"
+" \n"
+" }")
         self.pushButton.setObjectName("pushButton")
         self.pushButton_2 = QtWidgets.QPushButton(self.frame_3)
-        self.pushButton_2.setGeometry(QtCore.QRect(280, 100, 61, 20))
+        self.pushButton_2.setGeometry(QtCore.QRect(280, 89, 121, 31))
         self.pushButton_2.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.pushButton_2.setStyleSheet("QPushButton{\n"
+"background-color: rgb(0, 170, 127);\n"
+"color: rgb(255, 255, 255);\n"
+"font: 63 12pt \"Yu Gothic UI Semibold\";\n"
+"}\n"
+"\n"
+"QPushButton:hover#pushButton_2\n"
+"{\n"
+"  background-color: rgb(0, 197, 95);\n"
+" \n"
+" }")
         self.pushButton_2.setObjectName("pushButton_2")
         self.frame_5 = QtWidgets.QFrame(self.frame)
         self.frame_5.setGeometry(QtCore.QRect(430, 230, 391, 130))
@@ -89,13 +110,24 @@ class Ui_MainWindow(object):
         self.label_2.setText("")
         self.label_2.setObjectName("label_2")
         self.label_6 = QtWidgets.QLabel(self.frame_5)
-        self.label_6.setGeometry(QtCore.QRect(70, 30, 151, 21))
+        self.label_6.setGeometry(QtCore.QRect(110, 30, 151, 21))
         self.label_6.setStyleSheet("font: 12pt \"Trebuchet MS\";")
         self.label_6.setAlignment(QtCore.Qt.AlignCenter)
         self.label_6.setObjectName("label_6")
         self.pushButton_3 = QtWidgets.QPushButton(self.frame_5)
-        self.pushButton_3.setGeometry(QtCore.QRect(115, 99, 71, 21))
+        self.pushButton_3.setGeometry(QtCore.QRect(150, 90, 101, 31))
         self.pushButton_3.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.pushButton_3.setStyleSheet("QPushButton{\n"
+"background-color: rgb(0, 170, 127);\n"
+"color: rgb(255, 255, 255);\n"
+"font: 63 12pt \"Yu Gothic UI Semibold\";\n"
+"}\n"
+"\n"
+"QPushButton:hover#pushButton_3\n"
+"{\n"
+"  background-color: rgb(0, 197, 95);\n"
+"  \n"
+" }")
         self.pushButton_3.setObjectName("pushButton_3")
         self.frame_6 = QtWidgets.QFrame(self.frame)
         self.frame_6.setGeometry(QtCore.QRect(-20, 370, 441, 130))
@@ -114,8 +146,21 @@ class Ui_MainWindow(object):
         self.label_7.setAlignment(QtCore.Qt.AlignCenter)
         self.label_7.setObjectName("label_7")
         self.pushButton_4 = QtWidgets.QPushButton(self.frame_6)
-        self.pushButton_4.setGeometry(QtCore.QRect(230, 100, 71, 20))
+        self.pushButton_4.setGeometry(QtCore.QRect(200, 90, 141, 31))
         self.pushButton_4.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.pushButton_4.setStyleSheet("QPushButton{\n"
+"background-color: rgb(255, 44, 2);\n"
+"color: rgb(255, 255, 255);\n"
+"font: 63 12pt \"Yu Gothic UI Semibold\";\n"
+"}\n"
+"\n"
+"QPushButton:hover#pushButton_4\n"
+"\n"
+"{\n"
+"   \n"
+"    background-color: rgb(255, 85, 0);\n"
+" \n"
+" }")
         self.pushButton_4.setObjectName("pushButton_4")
         self.frame_7 = QtWidgets.QFrame(self.frame)
         self.frame_7.setGeometry(QtCore.QRect(430, 370, 391, 130))
@@ -129,13 +174,24 @@ class Ui_MainWindow(object):
         self.label_4.setText("")
         self.label_4.setObjectName("label_4")
         self.label_8 = QtWidgets.QLabel(self.frame_7)
-        self.label_8.setGeometry(QtCore.QRect(80, 30, 151, 21))
+        self.label_8.setGeometry(QtCore.QRect(130, 30, 151, 21))
         self.label_8.setStyleSheet("font: 12pt \"Trebuchet MS\";")
         self.label_8.setAlignment(QtCore.Qt.AlignCenter)
         self.label_8.setObjectName("label_8")
         self.pushButton_5 = QtWidgets.QPushButton(self.frame_7)
-        self.pushButton_5.setGeometry(QtCore.QRect(120, 100, 71, 20))
+        self.pushButton_5.setGeometry(QtCore.QRect(150, 90, 101, 31))
         self.pushButton_5.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.pushButton_5.setStyleSheet("QPushButton{  \n"
+"    background-color: rgb(0, 124, 186);\n"
+"color: rgb(255, 255, 255);\n"
+"font: 63 12pt \"Yu Gothic UI Semibold\";\n"
+"}\n"
+"\n"
+"QPushButton:hover#pushButton_5\n"
+"{\n"
+"    background-color: rgb(0, 170, 255);\n"
+"   \n"
+" }")
         self.pushButton_5.setObjectName("pushButton_5")
         self.label_10 = QtWidgets.QLabel(self.frame)
         self.label_10.setGeometry(QtCore.QRect(150, 510, 561, 31))
@@ -149,20 +205,25 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.pushButton_6.setText(_translate("MainWindow", "PushButton"))
-        self.label_9.setText(_translate("MainWindow", "TextLabel"))
+        self.label_9.setText(_translate("MainWindow", " "))
         self.label_5.setText(_translate("MainWindow", " INPUT A CAR PICTURE"))
-        self.pushButton.setText(_translate("MainWindow", "PushButton"))
-        self.pushButton_2.setText(_translate("MainWindow", "PushButton"))
+        self.pushButton.setToolTip(_translate("MainWindow", "select a vehicle picture"))
+        self.pushButton.setText(_translate("MainWindow", "SELECT PICTURE"))
+        self.pushButton_2.setToolTip(_translate("MainWindow", "use camera to detect plate"))
+        self.pushButton_2.setText(_translate("MainWindow", "TAKE PICTURE"))
         self.label_6.setText(_translate("MainWindow", " INPUT A CAR PLATE"))
-        self.pushButton_3.setText(_translate("MainWindow", "PushButton"))
+        self.pushButton_3.setToolTip(_translate("MainWindow", "Enter a car plate manually"))
+        self.pushButton_3.setText(_translate("MainWindow", "ENTER"))
         self.label_7.setText(_translate("MainWindow", "<html><head/><body><p>SEARCH &amp; DELETE CAR </p><p>PLATE</p></body></html>"))
-        self.pushButton_4.setText(_translate("MainWindow", "PushButton"))
+        self.pushButton_4.setToolTip(_translate("MainWindow", "Search or Delete a car Plate"))
+        self.pushButton_4.setText(_translate("MainWindow", "SEARCH / DELETE"))
+        self.frame_7.setToolTip(_translate("MainWindow", "Update vehical details in the db"))
         self.label_8.setText(_translate("MainWindow", "UPDATE CAR DETAILS"))
-        self.pushButton_5.setText(_translate("MainWindow", "PushButton"))
+        self.pushButton_5.setText(_translate("MainWindow", "UPDATE"))
         self.label_10.setText(_translate("MainWindow", " <p>&copy; Kamati Technologies</p>"))
 import add_rc
 import delete_rc
+import logo_rc
 import search_rc
 import update_rc
 import webcam_rc

@@ -1,0 +1,5 @@
+<RCC>
+  <qresource prefix="sync">
+    <file>ok2.png</file>
+  </qresource>
+</RCC>
