@@ -24,12 +24,12 @@ class Ui_MainWindow(object):
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame.setObjectName("frame")
         self.lineEdit = QtWidgets.QLineEdit(self.frame)
-        self.lineEdit.setGeometry(QtCore.QRect(150, 60, 361, 51))
+        self.lineEdit.setGeometry(QtCore.QRect(170, 60, 361, 51))
         self.lineEdit.setStyleSheet("background-color: rgb(255, 255, 255);")
         self.lineEdit.setAlignment(QtCore.Qt.AlignCenter)
         self.lineEdit.setObjectName("lineEdit")
         self.pushButton = QtWidgets.QPushButton(self.frame)
-        self.pushButton.setGeometry(QtCore.QRect(434, 130, 71, 31))
+        self.pushButton.setGeometry(QtCore.QRect(460, 260, 71, 31))
         self.pushButton.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.pushButton.setStyleSheet("\n"
 "QPushButton{     \n"
@@ -43,12 +43,24 @@ class Ui_MainWindow(object):
 "}")
         self.pushButton.setText("")
         self.pushButton.setObjectName("pushButton")
-        self.label = QtWidgets.QLabel(self.frame)
-        self.label.setGeometry(QtCore.QRect(160, 300, 351, 51))
-        self.label.setStyleSheet("font: 12pt \"Segoe MDL2 Assets\";")
-        self.label.setText("")
-        self.label.setAlignment(QtCore.Qt.AlignCenter)
-        self.label.setObjectName("label")
+        self.pushButton_2 = QtWidgets.QPushButton(self.frame)
+        self.pushButton_2.setGeometry(QtCore.QRect(10, 10, 71, 31))
+        self.pushButton_2.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.pushButton_2.setStyleSheet("\n"
+"QPushButton{     \n"
+"background-color: rgb(255, 255, 255);\n"
+"    image: url(:/back/undo.png);\n"
+"border-radius:10px;\n"
+"}\n"
+"QPushButton:hover#pushButton_2\n"
+"{\n"
+"  border:2px solid  rgb(0, 170, 127);  \n"
+"}")
+        self.pushButton_2.setText("")
+        self.pushButton_2.setObjectName("pushButton_2")
+        self.lineEdit_2 = QtWidgets.QLineEdit(self.frame)
+        self.lineEdit_2.setGeometry(QtCore.QRect(170, 180, 361, 51))
+        self.lineEdit_2.setObjectName("lineEdit_2")
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
@@ -58,6 +70,7 @@ class Ui_MainWindow(object):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.lineEdit.setPlaceholderText(_translate("MainWindow", "Enter a car plate to update"))
+import back_rc
 import sync_rc
 
 

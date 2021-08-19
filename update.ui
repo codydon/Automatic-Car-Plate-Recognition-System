@@ -35,7 +35,7 @@
     <widget class="QLineEdit" name="lineEdit">
      <property name="geometry">
       <rect>
-       <x>150</x>
+       <x>170</x>
        <y>60</y>
        <width>361</width>
        <height>51</height>
@@ -54,8 +54,8 @@
     <widget class="QPushButton" name="pushButton">
      <property name="geometry">
       <rect>
-       <x>434</x>
-       <y>130</y>
+       <x>460</x>
+       <y>260</y>
        <width>71</width>
        <height>31</height>
       </rect>
@@ -79,23 +79,42 @@ QPushButton:hover#pushButton
       <string/>
      </property>
     </widget>
-    <widget class="QLabel" name="label">
+    <widget class="QPushButton" name="pushButton_2">
      <property name="geometry">
       <rect>
-       <x>160</x>
-       <y>300</y>
-       <width>351</width>
-       <height>51</height>
+       <x>10</x>
+       <y>10</y>
+       <width>71</width>
+       <height>31</height>
       </rect>
      </property>
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
+     </property>
      <property name="styleSheet">
-      <string notr="true">font: 12pt &quot;Segoe MDL2 Assets&quot;;</string>
+      <string notr="true">
+QPushButton{	 
+background-color: rgb(255, 255, 255);
+	image: url(:/back/undo.png);
+border-radius:10px;
+}
+QPushButton:hover#pushButton_2
+{
+  border:2px solid  rgb(0, 170, 127);  
+}</string>
      </property>
      <property name="text">
       <string/>
      </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
+    </widget>
+    <widget class="QLineEdit" name="lineEdit_2">
+     <property name="geometry">
+      <rect>
+       <x>170</x>
+       <y>180</y>
+       <width>361</width>
+       <height>51</height>
+      </rect>
      </property>
     </widget>
    </widget>
@@ -103,6 +122,7 @@ QPushButton:hover#pushButton
  </widget>
  <resources>
   <include location="sync.qrc"/>
+  <include location="back.qrc"/>
  </resources>
  <connections/>
 </ui>
