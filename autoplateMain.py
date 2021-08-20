@@ -1,13 +1,16 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QMessageBox,  QFileDialog, QDialog
+from PyQt5.QtWidgets import QMessageBox,  QFileDialog, QDialog, QShortcut,QTableWidget
 from PyQt5.QtCore import QDate, QTime, QDateTime, Qt
-from PyQt5.QtGui import QPixmap
-from PyQt5.QtWidgets import QTableWidget
+from PyQt5.QtGui import QPixmap, QKeySequence
 import sys
 import os
+import keyboard
+from mysql.connector.errors import Error #pip install keyboard
 from db import *
 import autoplate as main
 import searchplate as search
+import input as input
+import update as update
 
 import cv2
 from matplotlib import pyplot as plt
@@ -26,6 +29,10 @@ class AutoPlate(main.Ui_MainWindow, QtWidgets.QMainWindow):
                 self.pushButton_2.clicked.connect(self.takePicture)
                 #button search page
                 self.pushButton_4.clicked.connect(self.searchNdelete)
+                #button to open input plate window
+                self.pushButton_3.clicked.connect(self.inputPlate)
+                #button to open input plate window
+                self.pushButton_5.clicked.connect(self.updatePlate)
         
         def choosePic(self):
                 #reading image from user, grayscale & blur
@@ -110,8 +117,8 @@ class AutoPlate(main.Ui_MainWindow, QtWidgets.QMainWindow):
                 c_image = cv2.imread('kenyanPlate.png')
 
                 #set pytesseract path
-                pytesseract.pytesseract.tesseract_cmd = r'C:\Users\codyDon\AppData\Local\Tesseract-OCR\tesseract.exe'
-                #pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files (x86)\Tesseract-OCR\tesseract.exe'
+                #pytesseract.pytesseract.tesseract_cmd = r'C:\Users\codyDon\AppData\Local\Tesseract-OCR\tesseract.exe'
+                pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files (x86)\Tesseract-OCR\tesseract.exe'
 
                 # pytesseract is trained in many languages
                 image_to_text = pytesseract.image_to_string(c_image, lang='eng')
@@ -138,6 +145,15 @@ class AutoPlate(main.Ui_MainWindow, QtWidgets.QMainWindow):
                 self.ui = SearchDelete()
                 self.ui.show()
                 self.hide()
+        def inputPlate(self):
+                self.ui = InputPlate()
+                self.ui.show()
+                self.hide()
+
+        def updatePlate(self):
+                self.ui = UpdatePlate()
+                self.ui.show()
+                self.hide()
 
 class SearchDelete(search.Ui_MainWindow, QtWidgets.QMainWindow):
                 def __init__(self):
@@ -146,6 +162,7 @@ class SearchDelete(search.Ui_MainWindow, QtWidgets.QMainWindow):
 
                         self.pushButton.clicked.connect(self.back_button)
                         self.pushButton_2.clicked.connect(self.search)
+
                 #redirectback to maindashboard
                 def back_button(self):
                         self.ui = AutoPlate()
@@ -155,21 +172,112 @@ class SearchDelete(search.Ui_MainWindow, QtWidgets.QMainWindow):
                 def search(self):
                         platenumber = self.lineEdit.text()
                         cursor = conn.cursor()
-                        query = """SELECT *FROM my_table WHERE number=(%s)"""
-                        values = (platenumber,)
-                        cursor.execute( query,values)
+                        query = """SELECT * FROM my_table"""
+                        #values = (platenumber,)
+                        cursor.execute(query)
                         result = cursor.fetchall()
+                        print(result)
                         
                         self.tableWidget.setRowCount(0)
 
                         for row_number, row_data in enumerate(result):
                                 self.tableWidget.insertRow(row_number)
-
+                                break
                         for column_number, data in enumerate(row_data):
                                 self.tableWidget.setItem(row_number, column_number, QTableWidget(str(data)))
                         print(result)
                         conn.commit()
                         cursor.close()
+
+class InputPlate(input.Ui_MainWindow, QtWidgets.QMainWindow):
+        def __init__(self):
+                super(InputPlate, self).__init__()
+                self.setupUi(self) 
+
+                #for back button
+                self.pushButton_2.clicked.connect(self.backButton)
+                #button to save to db
+                self.pushButton.clicked.connect(self.saveToDb)
+
+        def backButton(self):
+                self.ui = AutoPlate()
+                self.ui.show()
+                self.hide()
+
+        def saveToDb(self):
+                plate = self.lineEdit.text()
+                date = QDate.currentDate().toString("yyyy-MM-dd")
+                if plate=="":
+                        self.label.setText("Fill the empty space")
+                else:  
+                        try:     
+                                cursor = conn.cursor()
+                                query = ("INSERT INTO my_table (number,date) VALUE(%s,%s)")
+                                values = (plate, date)
+                                cursor.execute( query,values)
+                                conn.commit()
+                                cursor.close()
+                                plate = self.lineEdit.clear()
+                                self.label.setText("Inserted successfully")
+                        except mc.Error as e:
+                                self.label.setText("Database couldnot be found!!!")
+
+class UpdatePlate(update.Ui_MainWindow, QtWidgets.QMainWindow):
+        def __init__(self):
+                super(UpdatePlate, self).__init__()
+                self.setupUi(self)
+
+                #back button
+                self.pushButton_2.clicked.connect(self.backButton)
+                #update button
+                self.pushButton.clicked.connect(self.update)
+                #button
+                self.shortcut_open = QShortcut(QKeySequence('ctrl+o'), self)
+                self.shortcut_open.activated.connect(self.select)
+
+        def backButton(self):
+                self.ui = AutoPlate()
+                self.ui.show()
+                self.hide()
+        #update function
+        def select(self):
+                plate = self.lineEdit.text()
+                if plate=="":
+                        self.label.setText("fill the empty spaces!!!")
+                else:
+                        try:
+                                cursor = conn.cursor()
+                                query = """SELECT * FROM my_table WHERE number=(%s)"""
+                                cursor.execute(query,(plate,))
+                                global result
+                                result = cursor.fetchall()
+                                for results in result:
+                                        self.lineEdit_2.setText(results[1])
+                                        self.lineEdit_3.setText(str(results[0]))
+                                self.lineEdit.clear()
+                        except mc.Error as e:
+                                self.label.setText("Data could not be found!!!")
+
+        def update(self):
+                id = self.lineEdit_3.text()
+                number = self.lineEdit_2.text()
+                date = QDate.currentDate().toString("yyyy-MM-dd")
+                if number=="":
+                        self.label.setText("fill the empty spaces!!!")
+                else:
+                        try:
+                                cursor = conn.cursor()
+                                query = """UPDATE my_table SET number = %s, date =%s WHERE ID=%s""" 
+                                #value = (basic_salary,role, email)
+                                cursor.execute(query,(number,date,id))
+                                conn.commit()
+                                self.label.setText("Updated sucessfully!!!")
+
+                                self.lineEdit_3.clear()
+                                self.lineEdit_2.clear()
+                                cursor.close()
+                        except mc.Error as e:
+                              self.label.setText("Data could not be found!!!")  
 
 if __name__ == "__main__":
         #create an application

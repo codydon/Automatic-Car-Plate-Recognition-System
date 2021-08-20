@@ -29,7 +29,7 @@ class Ui_MainWindow(object):
         self.lineEdit.setAlignment(QtCore.Qt.AlignCenter)
         self.lineEdit.setObjectName("lineEdit")
         self.pushButton = QtWidgets.QPushButton(self.frame)
-        self.pushButton.setGeometry(QtCore.QRect(460, 260, 71, 31))
+        self.pushButton.setGeometry(QtCore.QRect(490, 350, 71, 31))
         self.pushButton.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.pushButton.setStyleSheet("\n"
 "QPushButton{     \n"
@@ -59,8 +59,21 @@ class Ui_MainWindow(object):
         self.pushButton_2.setText("")
         self.pushButton_2.setObjectName("pushButton_2")
         self.lineEdit_2 = QtWidgets.QLineEdit(self.frame)
-        self.lineEdit_2.setGeometry(QtCore.QRect(170, 180, 361, 51))
+        self.lineEdit_2.setGeometry(QtCore.QRect(160, 260, 361, 51))
         self.lineEdit_2.setObjectName("lineEdit_2")
+        self.label = QtWidgets.QLabel(self.frame)
+        self.label.setGeometry(QtCore.QRect(170, 130, 361, 21))
+        self.label.setStyleSheet("font: 75 11pt \"Calibri\";")
+        self.label.setText("")
+        self.label.setObjectName("label")
+        self.lineEdit_3 = QtWidgets.QLineEdit(self.frame)
+        self.lineEdit_3.setGeometry(QtCore.QRect(160, 190, 361, 51))
+        self.lineEdit_3.setInputMask("")
+        self.lineEdit_3.setText("")
+        self.lineEdit_3.setEchoMode(QtWidgets.QLineEdit.Normal)
+        self.lineEdit_3.setReadOnly(True)
+        self.lineEdit_3.setClearButtonEnabled(False)
+        self.lineEdit_3.setObjectName("lineEdit_3")
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
@@ -69,7 +82,7 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.lineEdit.setPlaceholderText(_translate("MainWindow", "Enter a car plate to update"))
+        self.lineEdit.setPlaceholderText(_translate("MainWindow", "Enter a car plate and press CTRL+O to update"))
 import back_rc
 import sync_rc
 
