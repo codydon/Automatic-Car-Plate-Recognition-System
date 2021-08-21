@@ -161,7 +161,11 @@ class SearchDelete(search.Ui_MainWindow, QtWidgets.QMainWindow):
                         self.setupUi(self)
 
                         self.pushButton.clicked.connect(self.back_button)
-                        self.pushButton_2.clicked.connect(self.search)
+                        self.pushButton_2.clicked.connect(self.delete)
+                        
+                        #button
+                        self.shortcut_open = QShortcut(QKeySequence('ctrl+o'), self)
+                        self.shortcut_open.activated.connect(self.search)
 
                 #redirectback to maindashboard
                 def back_button(self):
@@ -171,23 +175,44 @@ class SearchDelete(search.Ui_MainWindow, QtWidgets.QMainWindow):
 
                 def search(self):
                         platenumber = self.lineEdit.text()
-                        cursor = conn.cursor()
-                        query = """SELECT * FROM my_table"""
-                        #values = (platenumber,)
-                        cursor.execute(query)
-                        result = cursor.fetchall()
-                        print(result)
-                        
-                        self.tableWidget.setRowCount(0)
+                        if platenumber=="":
+                                self.label_3.setText("Fill the blank spaces!!!")
+                        else:
+                                try:
+                                        global result
+                                        cursor = conn.cursor()
+                                        query = """SELECT *FROM my_table WHERE number=(%s)"""
+                                        values = (platenumber,)
+                                        cursor.execute(query,values)
+                                        result = cursor.fetchall()
+                                        self.lineEdit.clear()
 
-                        for row_number, row_data in enumerate(result):
-                                self.tableWidget.insertRow(row_number)
-                                break
-                        for column_number, data in enumerate(row_data):
-                                self.tableWidget.setItem(row_number, column_number, QTableWidget(str(data)))
-                        print(result)
-                        conn.commit()
-                        cursor.close()
+                                        self.label_7.setText(str(result[0][0]))
+                                        self.label_8.setText(str(result[0][1]))
+                                        self.label_9.setText(str(result[0][2]))
+                                       
+                                except mc.Error as e:
+                                        self.label_3.setText("Data couldnot be found!!!")
+
+                       
+
+                def delete(self):
+                        try:
+                                id = result[0][0]
+                                print(id)
+                                cursor = conn.cursor()
+                                query= "DELETE FROM my_table WHERE ID= %s"
+                                value = (id,)
+                                cursor.execute(query, value)
+                                conn.commit()
+                                self.label_3.setText("Item deleted sucessfully!!!")
+
+                                self.label_7.clear()
+                                self.label_8.clear()
+                                self.label_9.clear()
+                                cursor.close()
+                        except mc.Error as e:
+                                self.label_3.setText("Item couldnot be found!!!")
 
 class InputPlate(input.Ui_MainWindow, QtWidgets.QMainWindow):
         def __init__(self):
