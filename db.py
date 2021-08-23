@@ -1,8 +1,10 @@
+#import mysql.connector as mc
 import mariadb as mc
+
 conn = mc.connect(
     host = 'localhost',
     user = 'root',
-    port = 3306,
+    #password = '',
     password = 'don',
     database = 'image' 
 )
