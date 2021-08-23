@@ -35,28 +35,32 @@ class AutoPlate(main.Ui_MainWindow, QtWidgets.QMainWindow):
                 self.processPic()
 
         def takePicture(self):
-                #capture image using laptop's webcam 0
-                videoCaptureObject = cv2.VideoCapture(0, cv2.CAP_DSHOW)
-                result = True
-                while(result):
-                        now = QDateTime.currentDateTime()
-                        datetime = QDateTime.currentDateTime()
-                        tdate = now.toString(Qt.ISODate)
-                        time = datetime.toString()
-                        ret,frame = videoCaptureObject.read()
-                        global store
-                        store = 'Pic.jpg'
-                        path ='C:/Users/Kiongoss/Desktop/Ml project/AutoPlate'
-                        print(store)
-                        #cv2.imwrite(store, frame)
-                        cv2.imwrite(os.path.join(path, "pic.jpg"), frame)
-                        result = False
-                videoCaptureObject.release()
-                cv2.destroyAllWindows()
-                global imagePath
-                imagePath = path+'/pic.jpg'
-                print(imagePath)
-                self.processPic()
+                try:
+                        #capture image using laptop's webcam 0
+                        videoCaptureObject = cv2.VideoCapture(0, cv2.CAP_DSHOW)
+                        result = True
+                        while(result):
+                                now = QDateTime.currentDateTime()
+                                datetime = QDateTime.currentDateTime()
+                                tdate = now.toString(Qt.ISODate)
+                                time = datetime.toString()
+                                ret,frame = videoCaptureObject.read()
+                                global store
+                                store = 'Pic.jpg'
+                                path ='C:/Users/Kiongoss/Desktop/Ml project/AutoPlate'
+                                print(store)
+                                #cv2.imwrite(store, frame)
+                                cv2.imwrite(os.path.join(path, "pic.jpg"), frame)
+                                result = False
+                        videoCaptureObject.release()
+                        cv2.destroyAllWindows()
+                        global imagePath
+                        imagePath = path+'/pic.jpg'
+                        print(imagePath)
+                        self.processPic()
+                except Exception:
+                        print("No number  Plate found")
+                        self.label_9.setText("Camera Found No Plate!")
 
         
         def processPic(self):

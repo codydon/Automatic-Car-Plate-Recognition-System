@@ -44,9 +44,10 @@ class Ui_MainWindow(object):
         self.frame_4.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_4.setObjectName("frame_4")
         self.label_9 = QtWidgets.QLabel(self.frame_2)
-        self.label_9.setGeometry(QtCore.QRect(320, 10, 371, 161))
+        self.label_9.setGeometry(QtCore.QRect(280, 10, 471, 161))
         self.label_9.setStyleSheet("font: 28pt \"Segoe MDL2 Assets\";")
         self.label_9.setFrameShadow(QtWidgets.QFrame.Sunken)
+        self.label_9.setText("")
         self.label_9.setAlignment(QtCore.Qt.AlignCenter)
         self.label_9.setObjectName("label_9")
         self.frame_3 = QtWidgets.QFrame(self.frame)
@@ -205,7 +206,6 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.label_9.setText(_translate("MainWindow", " "))
         self.label_5.setText(_translate("MainWindow", " INPUT A CAR PICTURE"))
         self.pushButton.setToolTip(_translate("MainWindow", "select a vehicle picture"))
         self.pushButton.setText(_translate("MainWindow", "SELECT PICTURE"))
