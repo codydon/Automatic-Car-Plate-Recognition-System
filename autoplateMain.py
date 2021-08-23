@@ -1,11 +1,11 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QMessageBox,  QFileDialog, QDialog, QShortcut,QTableWidget
-from PyQt5.QtCore import QDate, QTime, QDateTime, Qt
+from PyQt5.QtWidgets import QFileDialog, QDialog, QShortcut
+from PyQt5.QtCore import QDate, QTime, QDateTime, Qt, uppercasebase
 from PyQt5.QtGui import QPixmap, QKeySequence
 import sys
 import os
-import keyboard
-from mysql.connector.errors import Error #pip install keyboard
+import keyboard #pip install keyboard
+from mysql.connector.errors import Error
 from db import *
 import autoplate as main
 import searchplate as search
@@ -184,12 +184,16 @@ class SearchDelete(search.Ui_MainWindow, QtWidgets.QMainWindow):
                                         query = """SELECT *FROM my_table WHERE number=(%s)"""
                                         values = (platenumber,)
                                         cursor.execute(query,values)
-                                        result = cursor.fetchall()
+                                        result = tuple(cursor.fetchall())
                                         self.lineEdit.clear()
 
-                                        self.label_7.setText(str(result[0][0]))
-                                        self.label_8.setText(str(result[0][1]))
-                                        self.label_9.setText(str(result[0][2]))
+                                        if result !=():
+                                                u = result
+                                                self.label_7.setText(str(u[0][0]))
+                                                self.label_8.setText(str(u[0][1]))
+                                                self.label_9.setText(str(u[0][2]))
+                                        else:
+                                              self.label_3.setText("Plate number not found!!!")  
                                        
                                 except mc.Error as e:
                                         self.label_3.setText("Data couldnot be found!!!")
@@ -199,13 +203,15 @@ class SearchDelete(search.Ui_MainWindow, QtWidgets.QMainWindow):
                 def delete(self):
                         try:
                                 id = result[0][0]
-                                print(id)
-                                cursor = conn.cursor()
-                                query= "DELETE FROM my_table WHERE ID= %s"
-                                value = (id,)
-                                cursor.execute(query, value)
-                                conn.commit()
-                                self.label_3.setText("Item deleted sucessfully!!!")
+                                if id=="":
+                                     self.label_3.setText("Data couldnot be found!!!")
+                                else:   
+                                        cursor = conn.cursor()
+                                        query= "DELETE FROM my_table WHERE ID= %s"
+                                        value = (id,)
+                                        cursor.execute(query, value)
+                                        conn.commit()
+                                        self.label_3.setText("Item deleted sucessfully!!!")
 
                                 self.label_7.clear()
                                 self.label_8.clear()
@@ -231,6 +237,8 @@ class InputPlate(input.Ui_MainWindow, QtWidgets.QMainWindow):
 
         def saveToDb(self):
                 plate = self.lineEdit.text()
+                num=plate.upper()
+                print(num)
                 date = QDate.currentDate().toString("yyyy-MM-dd")
                 if plate=="":
                         self.label.setText("Fill the empty space")
@@ -238,7 +246,7 @@ class InputPlate(input.Ui_MainWindow, QtWidgets.QMainWindow):
                         try:     
                                 cursor = conn.cursor()
                                 query = ("INSERT INTO my_table (number,date) VALUE(%s,%s)")
-                                values = (plate, date)
+                                values = (num, date)
                                 cursor.execute( query,values)
                                 conn.commit()
                                 cursor.close()
