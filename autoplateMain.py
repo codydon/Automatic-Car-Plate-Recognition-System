@@ -149,7 +149,7 @@ class AutoPlate(main.Ui_MainWindow, QtWidgets.QMainWindow):
 
 
 
-                #APP LAUNCH
+                
 
         def searchNdelete(self):
                 self.ui = SearchDelete()
@@ -200,11 +200,8 @@ class SearchDelete(search.Ui_MainWindow, QtWidgets.QMainWindow):
                                         self.label_7.setText(str(result[0][0]))
                                         self.label_8.setText(str(result[0][1]))
                                         self.label_9.setText(str(result[0][2]))
-                                       
                                 except mc.Error as e:
                                         self.label_3.setText("Data couldnot be found!!!")
-
-                       
 
                 def delete(self):
                         try:
@@ -312,8 +309,9 @@ class UpdatePlate(update.Ui_MainWindow, QtWidgets.QMainWindow):
                                 self.lineEdit_2.clear()
                                 cursor.close()
                         except mc.Error as e:
-                              self.label.setText("Data could not be found!!!")  
+                                self.label.setText("Data could not be found!!!")  
 
+#APP LAUNCH
 if __name__ == "__main__":
         #create an application
         app = QtWidgets.QApplication(sys.argv)
