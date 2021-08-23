@@ -113,8 +113,14 @@ QPushButton:hover#pushButton
      <property name="styleSheet">
       <string notr="true">background-color: rgb(255, 255, 255);</string>
      </property>
+     <property name="inputMethodHints">
+      <set>Qt::ImhPreferUppercase|Qt::ImhUppercaseOnly</set>
+     </property>
      <property name="text">
       <string/>
+     </property>
+     <property name="maxLength">
+      <number>10</number>
      </property>
      <property name="frame">
       <bool>true</bool>
