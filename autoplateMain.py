@@ -3,6 +3,7 @@ from PyQt5.QtWidgets import QFileDialog, QDialog, QShortcut
 from PyQt5.QtCore import QDate, QTime, QDateTime, Qt, uppercasebase
 from PyQt5.QtGui import QPixmap, QKeySequence
 import sys
+import pyttsx3 #pip install pyttsx3
 import os
 import keyboard #pip install keyboard
 from mysql.connector.errors import Error
@@ -70,6 +71,13 @@ class AutoPlate(main.Ui_MainWindow, QtWidgets.QMainWindow):
                         self.processPic()
                 except Exception:
                         print("No number  Plate found")
+                         #text to speech
+                        engine = pyttsx3.init()
+                        #speech speed
+                        rate = engine.getProperty("rate")
+                        engine.setProperty("rate",100)                          
+                        engine.say("No number  Plate found")
+                        engine.runAndWait()
                         self.label_9.setText("Camera Found No Plate!")
 
         
@@ -127,13 +135,27 @@ class AutoPlate(main.Ui_MainWindow, QtWidgets.QMainWindow):
                 c_image = cv2.imread('kenyanPlate.png')
 
                 #set pytesseract path
-                pytesseract.pytesseract.tesseract_cmd = r'C:\Users\codyDon\AppData\Local\Tesseract-OCR\tesseract.exe'
-                #pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files (x86)\Tesseract-OCR\tesseract.exe'
+                #pytesseract.pytesseract.tesseract_cmd = r'C:\Users\codyDon\AppData\Local\Tesseract-OCR\tesseract.exe'
+                pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files (x86)\Tesseract-OCR\tesseract.exe'
 
                 # pytesseract is trained in many languages
                 image_to_text = pytesseract.image_to_string(c_image, lang='eng')
                 date = QDate.currentDate().toString("yyyy-MM-dd")
 
+                #text to speech
+                engine = pyttsx3.init()
+                
+                #voice either male or female
+                voices = engine.getProperty("voices")
+                engine.setProperty("voice", voices[1].id)
+                #1 for female
+                #0 for male
+                
+                #speech speed
+                rate = engine.getProperty("rate")
+                engine.setProperty("rate",200)                          
+                engine.say("The plate number is" + image_to_text)
+                engine.runAndWait()
                 # Print the text to the screen
                 if image_to_text != "":
                         self.label_9.setText(image_to_text)
@@ -143,7 +165,8 @@ class AutoPlate(main.Ui_MainWindow, QtWidgets.QMainWindow):
                         cursor.execute( query,values)
                         conn.commit()
                         cursor.close()
-                        print(image_to_text)
+
+                        
                 else:
                         self.label_9.setText("Number Plate Not Found")
 
