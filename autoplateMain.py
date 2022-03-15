@@ -6,7 +6,7 @@ import sys
 import pyttsx3 #pip install pyttsx3
 import os
 import keyboard #pip install keyboard
-from mysql.connector.errors import Error
+# from mysql.connector.errors import Error
 from db import *
 import autoplate as main
 import searchplate as search
@@ -19,6 +19,7 @@ import numpy as np
 import imutils
 import pytesseract
 from PIL import Image
+
 class AutoPlate(main.Ui_MainWindow, QtWidgets.QMainWindow):
         def __init__(self):
                 super(AutoPlate,self).__init__()
@@ -58,7 +59,7 @@ class AutoPlate(main.Ui_MainWindow, QtWidgets.QMainWindow):
                                 ret,frame = videoCaptureObject.read()
                                 global store
                                 store = 'Pic.jpg'
-                                path ='C:/Users/Kiongoss/Desktop/Ml project/AutoPlate'
+                                path ='C:/CODEHUB/python/Automatic-Car-Plate-Recognition-System'
                                 print(store)
                                 #cv2.imwrite(store, frame)
                                 cv2.imwrite(os.path.join(path, "pic.jpg"), frame)
@@ -136,7 +137,7 @@ class AutoPlate(main.Ui_MainWindow, QtWidgets.QMainWindow):
 
                 #set pytesseract path
                 #pytesseract.pytesseract.tesseract_cmd = r'C:\Users\codyDon\AppData\Local\Tesseract-OCR\tesseract.exe'
-                pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files (x86)\Tesseract-OCR\tesseract.exe'
+                pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files (x86)\tesseract.exe'
 
                 # pytesseract is trained in many languages
                 image_to_text = pytesseract.image_to_string(c_image, lang='eng')
@@ -151,16 +152,20 @@ class AutoPlate(main.Ui_MainWindow, QtWidgets.QMainWindow):
                 #1 for female
                 #0 for male
                 
-                #speech speed
-                rate = engine.getProperty("rate")
-                engine.setProperty("rate",200)                          
-                engine.say("The plate number is" + image_to_text)
-                engine.runAndWait()
+               
                 # Print the text to the screen
+                
+
                 if image_to_text != "":
                         self.label_9.setText(image_to_text)
+                        #speech speed
+                        rate = engine.getProperty("rate")
+                        engine.setProperty("rate",150)                          
+                        engine.say("The plate number is" + image_to_text)
+                        engine.runAndWait()
+
                         cursor = conn.cursor()
-                        query = ("INSERT INTO my_table (number,date) VALUE(%s,%s)")
+                        query = ("INSERT INTO plates (number,date) VALUE(%s,%s)")
                         values = (image_to_text, date)
                         cursor.execute( query,values)
                         conn.commit()
@@ -168,6 +173,11 @@ class AutoPlate(main.Ui_MainWindow, QtWidgets.QMainWindow):
 
                         
                 else:
+                        #speech speed
+                        rate = engine.getProperty("rate")
+                        engine.setProperty("rate",150)                          
+                        engine.say("Number Plate not found")
+                        engine.runAndWait()
                         self.label_9.setText("Number Plate Not Found")
 
 
